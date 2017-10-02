@@ -1,0 +1,25 @@
+{
+  "name": "pubg-bot",
+  "version": "0.0.1",
+  "description": "This will be a simple pubg bot for my personal group. You can download anytime you want, expect lots of errors.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boazcstrike/PUBG-bot.git"
+  },
+  "keywords": [
+    "pubg",
+    "bot",
+    "discord",
+    "boazcstrike"
+  ],
+  "author": "Boaz Sze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boazcstrike/PUBG-bot/issues"
+  },
+  "homepage": "https://github.com/boazcstrike/PUBG-bot#readme"
+}
