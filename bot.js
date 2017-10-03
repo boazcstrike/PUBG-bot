@@ -53,7 +53,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: '```PUBG SEA servers down? \nType .ping\nType .1 until .4 to view Singapore servers\.5 until .8 to view Australian Servers\.pingt for hosts latency```'
+                    message: '```PUBG SEA servers down? \nType .ping\nType .1 until .4 to view Singapore servers\n.5 until .8 to view Australian Servers\n.pingt for hosts latency```'
                 });
             break;
 
