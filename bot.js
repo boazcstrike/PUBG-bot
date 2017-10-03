@@ -2,6 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var ping = require('ping');
+const fs = require("fs");
 
 var hosts1 = ["13.228.0.251", "46.51.216.14", "46.137.255.254","52.74.0.2", "52.76.0.2"];
 var hosts2 = ["52.76.191.252", "52.77.63.252", "52.221.255.252","54.151.128.2", "54.169.0.2"];
@@ -46,13 +47,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'ping':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'Pong!'
+                    message: 'Pong, motherfuckaaa! ../.'
                 });
             //!help
             case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: '```pubg servers down? type .ping\ntype .1 until .4 to view Singapore servers\ntype .5 until .8 to view Australian Servers```'
+                    message: '```PUBG SEA servers down? type .ping\ntype .1 until .4 to view Singapore servers\ntype .5 until .8 to view Australian Servers\nType .pingt for hosts latency```'
                 });
             break;
             // Just add any case commands if you want to..
@@ -67,11 +68,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         //.ping
         if(cmd == 'ping'){
-            msglg += "```(Type .ping again if nothing shows up)";
+            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers.\n(Type .ping again if nothing shows up)";
 
             hosts.forEach(function(host){
                 ping.sys.probe(host, function(isAlive){
                     msglg += isAlive ? '\n' + host + ': active' : '\n' + host + ' down';
+                    msglg += ': ' + max["time"];
                 });
             });
 
@@ -82,18 +84,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             });
 
             msglg = "";
+        }
+        else if(cmd === 'pingt'){
+            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers.\n(Type .pingt again if nothing shows up)";
 
-            // hosts.forEach(function (host) {
-            //     ping.promise.probe(host)
-            //         .then(function (max) {
-            //             bot.sendMessage({
-            //                 to: channelID,
-            //                 message: max
-            //             });
-            //             console.log(max);
-            //         })
-            //         .done();
-            // })
+              hosts.forEach(function (host) {
+                ping.promise.probe(host)
+                    .then(function (max) {
+                        msglg += max["host"] +': ' + max["time"] + 'ms\n';
+                    })
+                    .done();
+            })
+            msglg += "```";
+            bot.sendMessage({
+                to: channelID,
+                message: msglg
+            });
+
+            msglg = "";
         }
         else if(cmd === '1'){
             hosts1.forEach(function(host){
@@ -181,6 +189,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         message: msg
                     });
                 });
+            });
+        }
+        else if(cmd === 'debug'){
+            hosts.forEach(function (host) {
+                ping.promise.probe(host)
+                    .then(function (max) {
+                        msglg += '\nTime: ' + max["time"];
+                        console.log(msglg);
+                    })
+                    .done();
+            })
+            bot.sendMessage({
+                to: channelID,
+                message: msglg
             });
         }
      }
