@@ -53,7 +53,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: '```PUBG SEA servers down? type .ping\ntype .1 until .4 to view Singapore servers\ntype .5 until .8 to view Australian Servers\nType .pingt for hosts latency```'
+                    message: '```PUBG SEA servers down?\nType .ping\nType .1 until .4 to view Singapore servers\.5 until .8 to view Australian Servers\.pingt for hosts latency```'
                 });
             break;
             // Just add any case commands if you want to..
@@ -68,7 +68,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         //.ping
         if(cmd == 'ping'){
-            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers.\n(Type .ping again if nothing shows up)";
+            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers. (Type .ping again if nothing shows up)";
 
             hosts.forEach(function(host){
                 ping.sys.probe(host, function(isAlive){
