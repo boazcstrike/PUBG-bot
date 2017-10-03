@@ -47,16 +47,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'ping':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'Pong, motherfuckaaa! ../.'
+                    message: 'Pong, motherfuckaaa! ../.```PUBG SEA servers down? \nType .ping\nType .1 until .4 to view Singapore servers\n.5 until .8 to view Australian Servers\.pingt for hosts latency```'
                 });
             //!help
             case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: '```PUBG SEA servers down?\nType .ping\nType .1 until .4 to view Singapore servers\.5 until .8 to view Australian Servers\.pingt for hosts latency```'
+                    message: '```PUBG SEA servers down? \nType .ping\nType .1 until .4 to view Singapore servers\.5 until .8 to view Australian Servers\.pingt for hosts latency```'
                 });
             break;
-            // Just add any case commands if you want to..
+
          }
      }
 
@@ -73,7 +73,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             hosts.forEach(function(host){
                 ping.sys.probe(host, function(isAlive){
                     msglg += isAlive ? '\n' + host + ': active' : '\n' + host + ' down';
-                    msglg += ': ' + max["time"];
                 });
             });
 
@@ -86,12 +85,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             msglg = "";
         }
         else if(cmd === 'pingt'){
-            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers.\n(Type .pingt again if nothing shows up)";
+            msglg += "```First 18 servers are Singapore Servers, the rest are Australian Servers. (Type .pingt again if nothing shows up)";
 
               hosts.forEach(function (host) {
                 ping.promise.probe(host)
                     .then(function (max) {
-                        msglg += max["host"] +': ' + max["time"] + 'ms\n';
+                        msglg += max["host"] +': ' + max["time"] + 'ms; Status: ';
+                        if(max['alive'] == 1){
+                             msglg += 'online';
+                        }else if(max['alive'] == 0){
+                             msglg += 'offline';
+                        }
+                        msglg += '\n';
                     })
                     .done();
             })
